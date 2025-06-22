@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KicBet - Tin Tức Thể Thao</title>
+        <style>
+        :root {
+            --primary: #00F5FF;
+            --primary-dark: #00A8B5;
+            --dark: #0A1A2F;
+            --darker: #071220;
+            --light: #FFFFFF;
+            --gray: #7F8FA4;
+            --danger: #FF3A3A;
+            --success: #00C853;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Neon Glow Effect */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 5px #00F5FF, 0 0 10px #00F5FF; }
+            50% { text-shadow: 0 0 15px #00F5FF, 0 0 30px #00F5FF; }
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 26, 47, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00F5FF, #FFFFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: neonGlow 2s infinite alternate;
+        }
+        
+        .logo-image {
+            width: 58px;
+            height: 58px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00F5FF 60%, #fff 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0,245,255,0.15);
+        }
+        .logo-image img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            display: block;
+            border-radius: 50%;
+            background: #fff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: #00F5FF;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00F5FF;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons button {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .login-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid #00F5FF;
+        }
+        
+        .login-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+        }
+        
+        .register-btn {
+            background: linear-gradient(90deg, #00F5FF, #00D4FF);
+            color: #0A1A2F;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        /* Main Content */
+        .container {
+            padding: 120px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* News Hero */
+        .news-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(10, 26, 47, 0.8));
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+        }
+        
+        .news-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .news-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        .news-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+        
+        /* News Categories */
+        .news-categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--darker);
+        }
+        
+        .news-categories::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .news-categories::-webkit-scrollbar-track {
+            background: var(--darker);
+            border-radius: 3px;
+        }
+        
+        .news-categories::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .category-btn {
+            padding: 10px 25px;
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            white-space: nowrap;
+        }
+        
+        .category-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .category-btn.active {
+            background: rgba(0, 245, 255, 0.2);
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+        }
+        
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        /* Featured News */
+        .featured-news {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-news {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* News Card với hiệu ứng 3D */
+        .news-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.5), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 245, 255, 0.2);
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+        
+        .news-card.featured {
+            grid-column: span 1;
+        }
+        
+        .news-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .news-card.featured .news-image {
+            height: 300px;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .news-category {
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .news-date {
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-date::before {
+            content: '•';
+            margin: 0 10px;
+            color: var(--gray);
+        }
+        
+        .news-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        
+        .news-card.featured .news-title {
+            font-size: 1.8rem;
+        }
+        
+        .news-excerpt {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--light);
+            transform: translateX(5px);
+        }
+        
+        .read-more::after {
+            content: '→';
+            margin-left: 8px;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover::after {
+            transform: translateX(5px);
+        }
+        
+        /* News Pagination */
+        .news-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .page-btn:hover {
+            background: rgba(0, 245, 255, 0.2);
+            color: var(--primary);
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, rgba(255, 58, 58, 0.1), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 70px;
+            text-align: center;
+            border: 1px solid rgba(255, 58, 58, 0.2);
+        }
+        
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #FF3A3A, #FF8A8A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .newsletter p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 58, 58, 0.3);
+            border-radius: 8px 0 0 8px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #FF3A3A;
+            box-shadow: 0 0 0 2px rgba(255, 58, 58, 0.2);
+        }
+        
+        .newsletter-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #FF3A3A, #FF5E5E);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: var(--light);
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background: linear-gradient(135deg, #FF2A2A, #FF4E4E);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 58, 58, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .news-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-around;
+                gap: 10px;
+            }
+            
+            .container {
+                padding: 130px 15px 80px;
+            }
+            
+            .news-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .news-hero p {
+                font-size: 1rem;
+            }
+            
+            .news-card.featured .news-image {
+                height: 200px;
+            }
+            
+            .news-card.featured .news-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 8px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="logo_KicBet.png" alt="logo_KicBet">
+                </div>
+                <div class="logo-text">KicBet</div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="live.html">Live</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="khuyen_mai.html">Khuyến Mãi</a></li>
+                    <li><a href="tin_tuc.html">Tin Tức</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-buttons">
+                <button class="login-btn">Đăng Nhập</button>
+                <button class="register-btn">Đăng Ký</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- News Hero -->
+            <section class="news-hero">
+                <h1>TIN TỨC THỂ THAO & CÁ CƯỢC</h1>
+                <p>Cập nhật tin tức mới nhất về các giải đấu, phân tích kèo và
+                    dự đoán từ chuyên gia</p>
+            </section>
+
+            <!-- News Categories -->
+            <div class="news-categories">
+                <div class="category-btn active">Tất cả</div>
+                <div class="category-btn">Bóng đá</div>
+                <div class="category-btn">Tennis</div>
+                <div class="category-btn">Bóng rổ</div>
+                <div class="category-btn">Phân tích</div>
+                <div class="category-btn">Dự đoán</div>
+                <div class="category-btn">Công nghệ</div>
+                <div class="category-btn">Esports</div>
+            </div>
+
+            <!-- Featured News -->
+            <div class="featured-news">
+                <!-- Featured 1 -->
+                <div class="news-card featured">
+                    <div class="news-badge">Nổi bật</div>
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Bóng đá</span>
+                            <span class="news-date">2 giờ trước</span>
+                        </div>
+                        <h3 class="news-title">Pep Guardiola thừa nhận Man City
+                            gặp khó khăn trước Arsenal</h3>
+                        <p class="news-excerpt">HLV Pep Guardiola đã có những
+                            chia sẻ thẳng thắn về trận đấu sắp tới giữa Man City
+                            và Arsenal tại Premier League...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Featured 2 -->
+                <div class="news-card featured">
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Phân tích</span>
+                            <span class="news-date">5 giờ trước</span>
+                        </div>
+                        <h3 class="news-title">Phân tích kèo: Real Madrid vs
+                            Barcelona - Siêu kinh điển Tây Ban Nha</h3>
+                        <p class="news-excerpt">Chuyên gia KicBet phân tích chi
+                            tiết các kèo cược hấp dẫn cho trận đấu giữa hai gã
+                            khổng lồ Tây Ban Nha...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="news-grid">
+                <!-- News 1 -->
+                <div class="news-card">
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Tennis</span>
+                            <span class="news-date">Hôm nay</span>
+                        </div>
+                        <h3 class="news-title">Djokovic lập kỷ lục mới tại Grand
+                            Slam sau chiến thắng nghẹt thở</h3>
+                        <p class="news-excerpt">Tay vợt số 1 thế giới Novak
+                            Djokovic tiếp tục viết nên lịch sử với chiến thắng
+                            đầy kịch tính...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- News 2 -->
+                <div class="news-card">
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Bóng rổ</span>
+                            <span class="news-date">Hôm nay</span>
+                        </div>
+                        <h3 class="news-title">NBA: Lakers thua đậu trước
+                            Celtics dù LeBron James thi đấu xuất sắc</h3>
+                        <p class="news-excerpt">Los Angeles Lakers đã không thể
+                            vượt qua Boston Celtics trong trận đấu thuộc khuôn
+                            khổ NBA...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- News 3 -->
+                <div class="news-card">
+                    <div class="news-badge">Mới</div>
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Dự đoán</span>
+                            <span class="news-date">Hôm qua</span>
+                        </div>
+                        <h3 class="news-title">Dự đoán tỷ số Bayern Munich vs
+                            Dortmund bằng AI của KicBet</h3>
+                        <p class="news-excerpt">Hệ thống AI mới nhất của KicBet
+                            đưa ra dự đoán chính xác cho trận Der Klassiker sắp
+                            diễn ra...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- News 4 -->
+                <div class="news-card">
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1551958219-acbc608c6377?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Công nghệ</span>
+                            <span class="news-date">2 ngày trước</span>
+                        </div>
+                        <h3 class="news-title">KicBet ra mắt tính năng cá cược
+                            AR đầu tiên tại Việt Nam</h3>
+                        <p class="news-excerpt">Công nghệ thực tế tăng cường
+                            (AR) sẽ mang đến trải nghiệm cá cược đột phá cho
+                            người dùng...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- News 5 -->
+                <div class="news-card">
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Esports</span>
+                            <span class="news-date">3 ngày trước</span>
+                        </div>
+                        <h3 class="news-title">LMHT: T1 đánh bại JDG để giành vé
+                            vào chung kết CKTG 2023</h3>
+                        <p class="news-excerpt">Faker và các đồng đội đã có màn
+                            trình diễn xuất sắc để đánh bại JD Gaming với tỷ số
+                            3-1...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- News 6 -->
+                <div class="news-card">
+                    <div class="news-badge">Hot</div>
+                    <div class="news-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Tin tức">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">Bóng đá</span>
+                            <span class="news-date">3 ngày trước</span>
+                        </div>
+                        <h3 class="news-title">PSG chính thức xác nhận Mbappe sẽ
+                            rời CLB vào cuối mùa giải</h3>
+                        <p class="news-excerpt">Tiền đạo người Pháp Kylian
+                            Mbappe sẽ chấm dứt hợp đồng với PSG để tìm kiếm thử
+                            thách mới...</p>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Pagination -->
+            <div class="news-pagination">
+                <div class="page-btn">←</div>
+                <div class="page-btn active">1</div>
+                <div class="page-btn">2</div>
+                <div class="page-btn">3</div>
+                <div class="page-btn">4</div>
+                <div class="page-btn">5</div>
+                <div class="page-btn">→</div>
+            </div>
+
+            <!-- Newsletter -->
+            <section class="newsletter">
+                <h2>ĐĂNG KÝ NHẬN TIN</h2>
+                <p>Nhận thông báo về tin tức mới nhất, phân tích kèo và khuyến
+                    mãi đặc biệt từ KicBet</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input"
+                        placeholder="Nhập email của bạn" required>
+                    <button type="submit" class="newsletter-btn">Đăng
+                        ký</button>
+                </form>
+            </section>
+        </div>
+
+        <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupNewsCategories();
+            setupNewsCards();
+            setupNewsletter();
+        });
+        
+        // Setup news categories
+        function setupNewsCategories() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter news by category
+                    const category = this.textContent.trim();
+                    console.log(`Filtering news by: ${category}`);
+                });
+            });
+        }
+        
+        // Setup news cards interaction
+        function setupNewsCards() {
+            const newsCards = document.querySelectorAll('.news-card');
+            
+            newsCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.read-more')) {
+                        const newsTitle = this.querySelector('.news-title').textContent;
+                        console.log(`Viewing news: ${newsTitle}`);
+                        // Here you would navigate to news detail page
+                    }
+                });
+                
+                const readMoreBtn = card.querySelector('.read-more');
+                readMoreBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const newsTitle = card.querySelector('.news-title').textContent;
+                    console.log(`Reading more about: ${newsTitle}`);
+                    // Here you would navigate to news detail page
+                });
+            });
+        }
+        
+        // Setup newsletter form
+        function setupNewsletter() {
+            const newsletterForm = document.querySelector('.newsletter-form');
+            
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('.newsletter-input');
+                const email = emailInput.value.trim();
+                
+                if (email) {
+                    alert(`Cảm ơn bạn đã đăng ký nhận tin với email: ${email}`);
+                    emailInput.value = '';
+                }
+            });
+        }
+
+        document.querySelector('.login-btn').addEventListener('click', function() {
+            window.location.href = 'login_register.html';
+        });
+        document.querySelector('.register-btn').addEventListener('click', function() {
+            window.location.href = 'login_register.html';
+        });
+    </script>
+    </body>
+</html>

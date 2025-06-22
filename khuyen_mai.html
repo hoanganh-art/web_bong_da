@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KicBet - Khuyến Mãi Đặc Biệt</title>
+        <style>
+        :root {
+            --primary: #00F5FF;
+            --primary-dark: #00A8B5;
+            --dark: #0A1A2F;
+            --darker: #071220;
+            --light: #FFFFFF;
+            --gray: #7F8FA4;
+            --danger: #FF3A3A;
+            --success: #00C853;
+            --warning: #FFAB00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+         @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 5px #00F5FF, 0 0 10px #00F5FF; }
+            50% { text-shadow: 0 0 15px #00F5FF, 0 0 30px #00F5FF; }
+        }
+        /* Header với hiệu ứng thủy tinh */
+         header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 26, 47, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00F5FF, #FFFFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: neonGlow 2s infinite alternate;
+        }
+        
+        .logo-image {
+            width: 58px;
+            height: 58px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00F5FF 60%, #fff 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0,245,255,0.15);
+        }
+        .logo-image img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            display: block;
+            border-radius: 50%;
+            background: #fff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: #00F5FF;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00F5FF;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons button {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .login-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid #00F5FF;
+        }
+        
+        .login-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+        }
+        
+        .register-btn {
+            background: linear-gradient(90deg, #00F5FF, #00D4FF);
+            color: #0A1A2F;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+        }
+        /* Main Content */
+        .container {
+            padding: 120px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Hero Section */
+        .promo-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(10, 26, 47, 0.8));
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+        }
+        
+        .promo-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .promo-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        .promo-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--dark);
+            font-weight: 800;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.4);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transition: all 0.6s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Promo Categories */
+        .promo-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 25px;
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: 1px solid rgba(0, 245, 255, 0.1);
+        }
+        
+        .category-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .category-btn.active {
+            background: rgba(0, 245, 255, 0.2);
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+        }
+        
+        /* Promo Grid */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        /* Promo Card với hiệu ứng 3D */
+        .promo-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.5), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .promo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 245, 255, 0.2);
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+        
+        .promo-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--warning);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        
+        .promo-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .promo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .promo-card:hover .promo-image img {
+            transform: scale(1.1);
+        }
+        
+        .promo-content {
+            padding: 25px;
+        }
+        
+        .promo-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .promo-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .promo-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .promo-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .promo-code {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .promo-button {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        .promo-button:hover {
+            background: rgba(0, 245, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.1);
+        }
+        
+        /* VIP Section */
+        .vip-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .vip-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .vip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .vip-title {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #FFD700, #FFFFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .vip-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .vip-step {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .vip-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+        
+        .vip-level {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-weight: 800;
+            color: var(--dark);
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .vip-step-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .vip-benefits {
+            list-style: none;
+            text-align: left;
+            margin-top: 15px;
+        }
+        
+        .vip-benefits li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .vip-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-weight: 800;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .promo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-around;
+                gap: 10px;
+            }
+            
+            .container {
+                padding: 130px 15px 80px;
+            }
+            
+            .promo-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .promo-hero p {
+                font-size: 1rem;
+            }
+            
+            .vip-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .vip-title {
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .promo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-categories {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                scrollbar-width: none;
+            }
+            
+            .promo-categories::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="logo_KicBet.png" alt="logo_KicBet">
+                </div>
+                <div class="logo-text">KicBet</div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="live.html">Live</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="khuyen_mai.html">Khuyến Mãi</a></li>
+                    <li><a href="tin_tuc.html">Tin Tức</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-buttons">
+                <button class="login-btn">Đăng Nhập</button>
+                <button class="register-btn">Đăng Ký</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="promo-hero">
+                <h1>KHUYẾN MÃI ĐẶC BIỆT</h1>
+                <p>Nhận ngay ưu đãi độc quyền dành riêng cho thành viên
+                    KicBet</p>
+                <a href="#" class="cta-button">ĐĂNG KÝ NGAY</a>
+            </section>
+
+            <!-- Promo Categories -->
+            <div class="promo-categories">
+                <div class="category-btn active">Tất cả</div>
+                <div class="category-btn">Mới đăng ký</div>
+                <div class="category-btn">Nạp tiền</div>
+                <div class="category-btn">Hoàn trả</div>
+                <div class="category-btn">Thể thao</div>
+                <div class="category-btn">Casino</div>
+                <div class="category-btn">Sự kiện</div>
+            </div>
+
+            <!-- Promo Grid -->
+            <div class="promo-grid">
+                <!-- Promo 1 -->
+                <div class="promo-card">
+                    <div class="promo-badge">Hot</div>
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Thưởng 150% lần nạp đầu</h3>
+                        <p class="promo-desc">Nhận ngay 150% thưởng cho lần nạp
+                            tiền đầu tiên lên đến 3,000,000 VND</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">01/10 - 31/12/2023</span>
+                            <span class="promo-code">KM150FIRST</span>
+                        </div>
+                        <a href="#" class="promo-button">Nhận khuyến mãi</a>
+                    </div>
+                </div>
+
+                <!-- Promo 2 -->
+                <div class="promo-card">
+                    <div class="promo-badge">Mới</div>
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1551830820-330a71b99659?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Hoàn trả 1% không giới hạn</h3>
+                        <p class="promo-desc">Hoàn trả 1% mỗi tuần cho tất cả
+                            cược thể thao, không thắng thua</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">Áp dụng thường xuyên</span>
+                            <span class="promo-code">AUTO1P</span>
+                        </div>
+                        <a href="#" class="promo-button">Xem chi tiết</a>
+                    </div>
+                </div>
+
+                <!-- Promo 3 -->
+                <div class="promo-card">
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Miễn phí cược 500K</h3>
+                        <p class="promo-desc">Nhận ngay cược miễn phí 500,000
+                            VND khi đạt doanh thu 5,000,000 VND</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">15/10 - 15/11/2023</span>
+                            <span class="promo-code">FREE500K</span>
+                        </div>
+                        <a href="#" class="promo-button">Tham gia ngay</a>
+                    </div>
+                </div>
+
+                <!-- Promo 4 -->
+                <div class="promo-card">
+                    <div class="promo-badge">VIP</div>
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1593118247619-e2d6f056869e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Ưu đãi sinh nhật VIP</h3>
+                        <p class="promo-desc">Tặng quà sinh nhật trị giá lên đến
+                            10,000,000 VND cho thành viên VIP</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">Áp dụng cả năm</span>
+                            <span class="promo-code">VIPBIRTH</span>
+                        </div>
+                        <a href="#" class="promo-button">Nhận ưu đãi</a>
+                    </div>
+                </div>
+
+                <!-- Promo 5 -->
+                <div class="promo-card">
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Giải đấu thể thao mùa</h3>
+                        <p class="promo-desc">Tham gia giải đấu với tổng giải
+                            thưởng lên đến 500,000,000 VND</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">01/11 - 30/12/2023</span>
+                            <span class="promo-code">TOUR500M</span>
+                        </div>
+                        <a href="#" class="promo-button">Đăng ký thi đấu</a>
+                    </div>
+                </div>
+
+                <!-- Promo 6 -->
+                <div class="promo-card">
+                    <div class="promo-badge">Hot</div>
+                    <div class="promo-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Khuyến mãi">
+                    </div>
+                    <div class="promo-content">
+                        <h3 class="promo-title">Thưởng nạp lại 50%</h3>
+                        <p class="promo-desc">Nhận ngay 50% thưởng cho lần nạp
+                            tiền thứ 2 lên đến 2,000,000 VND</p>
+                        <div class="promo-meta">
+                            <span class="promo-date">01/10 - 31/12/2023</span>
+                            <span class="promo-code">KM50SEC</span>
+                        </div>
+                        <a href="#" class="promo-button">Nhận khuyến mãi</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIP Section -->
+            <section class="vip-section">
+                <div class="vip-header">
+                    <h2 class="vip-title">CHƯƠNG TRÌNH VIP</h2>
+                    <a href="#" class="cta-button">NÂNG CẤP VIP</a>
+                </div>
+
+                <div class="vip-steps">
+                    <!-- VIP 1 -->
+                    <div class="vip-step">
+                        <div class="vip-level">1</div>
+                        <h4 class="vip-step-title">VIP Đồng</h4>
+                        <p>Từ 10,000,000 VND doanh thu</p>
+                        <ul class="vip-benefits">
+                            <li>Hoàn trả 1.2% thể thao</li>
+                            <li>Thưởng sinh nhật 500K</li>
+                            <li>Rút tiền 30 phút</li>
+                        </ul>
+                    </div>
+
+                    <!-- VIP 2 -->
+                    <div class="vip-step">
+                        <div class="vip-level">2</div>
+                        <h4 class="vip-step-title">VIP Bạc</h4>
+                        <p>Từ 50,000,000 VND doanh thu</p>
+                        <ul class="vip-benefits">
+                            <li>Hoàn trả 1.5% thể thao</li>
+                            <li>Thưởng sinh nhật 2M</li>
+                            <li>Rút tiền 15 phút</li>
+                            <li>Quà tặng hàng tháng</li>
+                        </ul>
+                    </div>
+
+                    <!-- VIP 3 -->
+                    <div class="vip-step">
+                        <div class="vip-level">3</div>
+                        <h4 class="vip-step-title">VIP Vàng</h4>
+                        <p>Từ 200,000,000 VND doanh thu</p>
+                        <ul class="vip-benefits">
+                            <li>Hoàn trả 2% thể thao</li>
+                            <li>Thưởng sinh nhật 5M</li>
+                            <li>Rút tiền ngay lập tức</li>
+                            <li>Quà tặng hàng tuần</li>
+                            <li>Hỗ trợ VIP 24/7</li>
+                        </ul>
+                    </div>
+
+                    <!-- VIP 4 -->
+                    <div class="vip-step">
+                        <div class="vip-level">4</div>
+                        <h4 class="vip-step-title">VIP Kim Cương</h4>
+                        <p>Từ 1,000,000,000 VND doanh thu</p>
+                        <ul class="vip-benefits">
+                            <li>Hoàn trả 2.5% thể thao</li>
+                            <li>Thưởng sinh nhật 10M</li>
+                            <li>Quà tặng đặc biệt</li>
+                            <li>Du lịch hạng sang</li>
+                            <li>Quản lý cá nhân</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupPromoCategories();
+            setupPromoCards();
+        });
+        
+        // Setup promo categories
+        function setupPromoCategories() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Here you would filter promos by category
+                    const category = this.textContent.trim();
+                    console.log(`Filtering by: ${category}`);
+                });
+            });
+        }
+        
+        // Setup promo cards interaction
+        function setupPromoCards() {
+            const promoCards = document.querySelectorAll('.promo-card');
+            
+            promoCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.promo-button')) {
+                        const promoTitle = this.querySelector('.promo-title').textContent;
+                        console.log(`Viewing details for: ${promoTitle}`);
+                        // Here you would show promo details modal
+                    }
+                });
+                
+                const promoBtn = card.querySelector('.promo-button');
+                promoBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const promoTitle = card.querySelector('.promo-title').textContent;
+                    alert(`Bạn đã chọn khuyến mãi: ${promoTitle}`);
+                });
+            });
+        }
+    </script>
+    </body>
+</html>
