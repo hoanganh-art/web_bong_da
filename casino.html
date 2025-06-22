@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KicBet - Casino Trực Tuyến</title>
+        <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #0A1A2F;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Neon Glow Effect */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 5px #00F5FF, 0 0 10px #00F5FF; }
+            50% { text-shadow: 0 0 15px #00F5FF, 0 0 30px #00F5FF; }
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 26, 47, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00F5FF, #FFFFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: neonGlow 2s infinite alternate;
+        }
+        
+        .logo-image {
+            width: 58px;
+            height: 58px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00F5FF 60%, #fff 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0,245,255,0.15);
+        }
+        .logo-image img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            display: block;
+            border-radius: 50%;
+            background: #fff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: #00F5FF;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00F5FF;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons button {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .login-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid #00F5FF;
+        }
+        
+        .login-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+        }
+        
+        .register-btn {
+            background: linear-gradient(90deg, #00F5FF, #00D4FF);
+            color: #0A1A2F;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        /* Main Content */
+        .container {
+            padding: 120px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Casino Hero Section */
+        .casino-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(10, 26, 47, 0.8));
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.1);
+        }
+        
+        .casino-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1596838132731-3301c3fd4317?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .casino-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #FF00FF, #00F5FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+        
+        .casino-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #FF00FF, #00F5FF);
+            color: white;
+            font-weight: 800;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);
+        }
+        
+        /* Casino Categories */
+        .casino-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 25px;
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: 1px solid rgba(255, 0, 255, 0.1);
+        }
+        
+        .category-btn:hover {
+            background: rgba(255, 0, 255, 0.1);
+            color: #FF00FF;
+        }
+        
+        .category-btn.active {
+            background: rgba(255, 0, 255, 0.2);
+            color: #FF00FF;
+            border-color: #FF00FF;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+        }
+        
+        /* Casino Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        /* Game Card */
+        .game-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.5), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 0, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 0, 255, 0.2);
+            border-color: rgba(255, 0, 255, 0.3);
+        }
+        
+        .game-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #FF00FF;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        
+        .game-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+        
+        .game-content {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #FF00FF;
+        }
+        
+        .game-provider {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+        }
+        
+        .game-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .game-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .feature-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .feature-value {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .play-button {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 0, 255, 0.1);
+            color: #FF00FF;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+        }
+        
+        .play-button:hover {
+            background: rgba(255, 0, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.1);
+        }
+        
+        /* Live Casino Section */
+        .live-casino {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(10, 26, 47, 0.8));
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+        
+        .live-casino::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1585856068728-208d4b81c03c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .live-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .live-title {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #FF0000, #FF00FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .live-tables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .live-table {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .live-table:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+        
+        .table-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .table-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .table-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #FF0000;
+        }
+        
+        .table-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .table-limit {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .table-dealer {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+        }
+        
+        .join-button {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #FF0000, #FF00FF);
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-around;
+                gap: 10px;
+            }
+            
+            .container {
+                padding: 130px 15px 80px;
+            }
+            
+            .casino-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .casino-hero p {
+                font-size: 1rem;
+            }
+            
+            .live-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .live-title {
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .casino-categories {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                scrollbar-width: none;
+            }
+            
+            .casino-categories::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="logo_KicBet.png" alt="logo_KicBet">
+                </div>
+                <div class="logo-text">KicBet</div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="live.html">Live</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="casino.html">Casino</a></li>
+                    <li><a href="khuyen_mai.html">Khuyến Mãi</a></li>
+                    <li><a href="tin_tuc.html">Tin Tức</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-buttons">
+                <button class="login-btn">Đăng Nhập</button>
+                <button class="register-btn">Đăng Ký</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="casino-hero">
+                <h1>CASINO TRỰC TUYẾN</h1>
+                <p>Trải nghiệm sòng bạc trực tuyến đẳng cấp với hàng trăm trò chơi từ các nhà cung cấp hàng đầu thế giới</p>
+                <a href="#" class="cta-button">CHƠI NGAY</a>
+            </section>
+
+            <!-- Casino Categories -->
+            <div class="casino-categories">
+                <div class="category-btn active">Tất cả</div>
+                <div class="category-btn">Nổ hũ</div>
+                <div class="category-btn">Bài</div>
+                <div class="category-btn">Roulette</div>
+                <div class="category-btn">Baccarat</div>
+                <div class="category-btn">Blackjack</div>
+                <div class="category-btn">Live Casino</div>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="games-grid">
+                <!-- Game 1 -->
+                <div class="game-card">
+                    <div class="game-badge">Hot</div>
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Book of Dead</h3>
+                        <div class="game-provider">Play'n GO</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">96.2%</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Volatility</span>
+                                <span class="feature-value">High</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Max Win</span>
+                                <span class="feature-value">x5000</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card">
+                    <div class="game-badge">New</div>
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Mega Moolah</h3>
+                        <div class="game-provider">Microgaming</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">88.1%</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Volatility</span>
+                                <span class="feature-value">Medium</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Jackpot</span>
+                                <span class="feature-value">Progressive</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Starburst</h3>
+                        <div class="game-provider">NetEnt</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">96.1%</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Volatility</span>
+                                <span class="feature-value">Low</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Max Win</span>
+                                <span class="feature-value">x500</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card">
+                    <div class="game-badge">VIP</div>
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Blackjack VIP</h3>
+                        <div class="game-provider">Evolution</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">Min Bet</span>
+                                <span class="feature-value">500K</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Max Bet</span>
+                                <span class="feature-value">50M</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">99.5%</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Roulette Royale</h3>
+                        <div class="game-provider">Playtech</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">Min Bet</span>
+                                <span class="feature-value">10K</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Max Bet</span>
+                                <span class="feature-value">10M</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">97.3%</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="game-card">
+                    <div class="game-badge">Hot</div>
+                    <div class="game-image">
+                        <img src="https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Baccarat Gold</h3>
+                        <div class="game-provider">Pragmatic Play</div>
+                        <div class="game-features">
+                            <div class="game-feature">
+                                <span class="feature-label">Min Bet</span>
+                                <span class="feature-value">50K</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">Max Bet</span>
+                                <span class="feature-value">20M</span>
+                            </div>
+                            <div class="game-feature">
+                                <span class="feature-label">RTP</span>
+                                <span class="feature-value">98.9%</span>
+                            </div>
+                        </div>
+                        <a href="#" class="play-button">Chơi ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Casino Section -->
+            <section class="live-casino">
+                <div class="live-header">
+                    <h2 class="live-title">LIVE CASINO</h2>
+                    <a href="#" class="cta-button">XEM TẤT CẢ</a>
+                </div>
+
+                <div class="live-tables">
+                    <!-- Table 1 -->
+                    <div class="live-table">
+                        <div class="table-image">
+                            <img src="https://images.unsplash.com/photo-1585856068728-208d4b81c03c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Live Table">
+                        </div>
+                        <h4 class="table-name">Baccarat VIP</h4>
+                        <div class="table-info">
+                            <span class="table-limit">50K - 20M</span>
+                            <span class="table-limit">RTP: 98.9%</span>
+                        </div>
+                        <div class="table-dealer">Dealer: Sophia</div>
+                        <a href="#" class="join-button">Tham gia</a>
+                    </div>
+
+                    <!-- Table 2 -->
+                    <div class="live-table">
+                        <div class="table-image">
+                            <img src="https://images.unsplash.com/photo-1585856068728-208d4b81c03c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Live Table">
+                        </div>
+                        <h4 class="table-name">Roulette Premier</h4>
+                        <div class="table-info">
+                            <span class="table-limit">10K - 10M</span>
+                            <span class="table-limit">RTP: 97.3%</span>
+                        </div>
+                        <div class="table-dealer">Dealer: Michael</div>
+                        <a href="#" class="join-button">Tham gia</a>
+                    </div>
+
+                    <!-- Table 3 -->
+                    <div class="live-table">
+                        <div class="table-image">
+                            <img src="https://images.unsplash.com/photo-1585856068728-208d4b81c03c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Live Table">
+                        </div>
+                        <h4 class="table-name">Blackjack Classic</h4>
+                        <div class="table-info">
+                            <span class="table-limit">20K - 5M</span>
+                            <span class="table-limit">RTP: 99.5%</span>
+                        </div>
+                        <div class="table-dealer">Dealer: Emma</div>
+                        <a href="#" class="join-button">Tham gia</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCasinoCategories();
+            setupGameCards();
+        });
+        
+        // Setup casino categories
+        function setupCasinoCategories() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Here you would filter games by category
+                    const category = this.textContent.trim();
+                    console.log(`Filtering by: ${category}`);
+                });
+            });
+        }
+        
+        // Setup game cards interaction
+        function setupGameCards() {
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            gameCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.play-button')) {
+                        const gameTitle = this.querySelector('.game-title').textContent;
+                        console.log(`Viewing details for: ${gameTitle}`);
+                        // Here you would show game details modal
+                    }
+                });
+                
+                const playBtn = card.querySelector('.play-button');
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const gameTitle = card.querySelector('.game-title').textContent;
+                    alert(`Bạn đã chọn chơi: ${gameTitle}`);
+                });
+            });
+        }
+        document.querySelector('.login-btn').addEventListener('click', function() {
+            window.location.href = 'login_register.html';
+        });
+        document.querySelector('.register-btn').addEventListener('click', function() {
+            window.location.href = 'login_register.html';
+        });
+    </script>
+    </body>
+</html>
